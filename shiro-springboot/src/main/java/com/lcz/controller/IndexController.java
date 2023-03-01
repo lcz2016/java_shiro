@@ -11,11 +11,12 @@ public class IndexController {
 
     @GetMapping({"/","/Index"})
     public  String index(Model model){
-        model.addAttribute("title","首页-欢迎您2112！!！");
-        return "index";
+        model.addAttribute("title","首页-欢迎您211！!！");
+        return "/index";
     }
     @GetMapping("/ToLogin")
-    public String tologin(){
+    public String tologin(Model model){
+        model.addAttribute("msg","");
         return "/login";
     }
 }
