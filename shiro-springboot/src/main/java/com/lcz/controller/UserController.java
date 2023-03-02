@@ -1,11 +1,13 @@
 package com.lcz.controller;
 
+import com.lcz.service.UserServer;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +15,10 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 @RequestMapping("/User")
 public class UserController {
+
+    @Autowired
+    private UserServer userServer;
+
     @GetMapping("/GetUserName")
     @ResponseBody
     public String getUserName(){
@@ -36,13 +42,11 @@ public class UserController {
         UsernamePasswordToken token = new UsernamePasswordToken(userName,passWord);
 
         try {
-            System.out.println("888888888888888");
             subject.login(token);
-            model.addAttribute("msg","lcz");
+            model.addAttribute("msg",userName);
             return "/index";
         } catch (UnknownAccountException e) {
             model.addAttribute("msg","用户名错误");
-            System.out.println("123123213");
             return  "/login";
         }
         catch (IncorrectCredentialsException e){
