@@ -1,5 +1,6 @@
 package com.lcz.controller;
 
+import com.lcz.bean.User;
 import com.lcz.service.UserServer;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
@@ -27,11 +28,14 @@ public class UserController {
 
     @GetMapping("/Add")
     public String add(){
-        return "User/Add";
+        return "user/add";
     }
     @GetMapping("/Edit")
-    public String edit(){
-        return "User/Edit";
+    public String edit(Model model){
+        // 获取登录对象
+        User user =(User) SecurityUtils.getSubject().getPrincipal();
+        model.addAttribute("username", user.getUsername());
+        return "user/edit";
     }
 
     @GetMapping("/Login")
@@ -44,14 +48,14 @@ public class UserController {
         try {
             subject.login(token);
             model.addAttribute("msg",userName);
-            return "/index";
+            return "index";
         } catch (UnknownAccountException e) {
             model.addAttribute("msg","用户名错误");
-            return  "/login";
+            return  "login";
         }
         catch (IncorrectCredentialsException e){
             model.addAttribute("msg","密码错误");
-            return  "/login";
+            return  "login";
         }
 
     }

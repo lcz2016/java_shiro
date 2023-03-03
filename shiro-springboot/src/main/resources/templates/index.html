@@ -1,15 +1,19 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
 <head>
     <meta charset="UTF-8">
     <title>首页</title>
 </head>
 <body>
 <div>
+    <p>[[${title}]]</p>
     [[${msg}]]
-    <a th:href="@{/ToLogin}">登录</a>
+
+    <a th:href="@{/ToLogin}" shiro:notAuthenticated="true">登录</a>
+    <a th:href="@{/ToLoginOut}" shiro:user="true">退出</a>
     <hr>
-    <a th:href="@{/User/Add}">add</a> |<a th:href="@{/User/Edit}">edit</a>
+    <a th:href="@{/User/Add}" shiro:hasPermission="user:add">add</a> |<a th:href="@{/User/Edit}" shiro:hasPermission="user:edit">edit</a>
 </div>
 </body>
 </html>

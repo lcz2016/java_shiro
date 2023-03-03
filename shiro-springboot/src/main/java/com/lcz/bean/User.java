@@ -27,6 +27,9 @@ public class User extends Model<User> {
     @TableField("LoginName")
     private String loginname;
 
+    @TableField("Password")
+    private String password;
+
 
     @Override
     public Serializable pkVal() {
