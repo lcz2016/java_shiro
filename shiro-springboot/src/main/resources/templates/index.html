@@ -8,7 +8,7 @@
 <body>
 <div>
     <p>[[${title}]]</p>
-    [[${msg}]]
+    [[${session.username}]]
 
     <a th:href="@{/ToLogin}" shiro:notAuthenticated="true">登录</a>
     <a th:href="@{/ToLoginOut}" shiro:user="true">退出</a>

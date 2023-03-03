@@ -13,6 +13,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
+
 @Controller
 @RequestMapping("/User")
 public class UserController {
@@ -39,7 +41,7 @@ public class UserController {
     }
 
     @GetMapping("/Login")
-    public  String login(String userName,String passWord,Model model){
+    public  String login(HttpSession session, String userName, String passWord, Model model){
         //获取当前用户
         System.out.println(userName);
         Subject subject = SecurityUtils.getSubject();
@@ -47,7 +49,7 @@ public class UserController {
 
         try {
             subject.login(token);
-            model.addAttribute("msg",userName);
+            session.setAttribute("username", userName);
             return "index";
         } catch (UnknownAccountException e) {
             model.addAttribute("msg","用户名错误");
