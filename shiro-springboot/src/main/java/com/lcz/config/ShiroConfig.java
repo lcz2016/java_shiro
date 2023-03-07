@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import javax.servlet.Filter;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -32,12 +33,17 @@ public class ShiroConfig {
         Map<String, String> filterChainDefinitionMap=new LinkedHashMap<>();
         filterChainDefinitionMap.put("/Index","anon");
         filterChainDefinitionMap.put("/ToLogin","anon");
-        filterChainDefinitionMap.put("/ToLoginOut","anon");
+        filterChainDefinitionMap.put("/ToLoginOut","logout");
         filterChainDefinitionMap.put("/NoPerms","anon");
         filterChainDefinitionMap.put("/User/Login","anon");
         filterChainDefinitionMap.put("/User/Add","perms[user:add]"); //需要有user.add 权限才可以访问
         filterChainDefinitionMap.put("/User/Edit","perms[user:edit]"); //需要有user.edit 权限才可以访问
         filterChainDefinitionMap.put("/User/*","authc");
+
+        // 定义自有的权限验证,退出登录
+        LinkedHashMap<String, Filter> filters = new LinkedHashMap<>();
+        filters.put("logout", new LoginOutFilter());
+        bean.setFilters(filters);
         bean.setFilterChainDefinitionMap(filterChainDefinitionMap);
         bean.setLoginUrl("/ToLogin");
         //未授权

@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
 <head>
     <meta charset="UTF-8">
     <title>编辑用户</title>
 </head>
 <body>
 edit    -- [[${username}]]
-
+<button type="button" shiro:hasRole="admin1">清空</button>
 </body>
 </html>

@@ -7,6 +7,7 @@ import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -32,6 +33,9 @@ public class UserController {
     public String add(){
         return "user/add";
     }
+
+
+    @RequiresPermissions("user:new")
     @GetMapping("/Edit")
     public String edit(Model model){
         // 获取登录对象
@@ -61,5 +65,7 @@ public class UserController {
         }
 
     }
+
+
 
 }

@@ -26,6 +26,7 @@ public class UserRealm extends AuthorizingRealm {
         System.out.println(user);
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
         info.addStringPermission("user:edit");
+        info.addRole("admin");
         return info;
     }
 
